@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loading…</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: grid;
+      place-items: center;
+      background: #0b0f14;
+      color: #e6eef8;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .spinner {
+      width: 64px;
+      height: 64px;
+      border: 6px solid rgba(255,255,255,0.15);
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .msg {
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+      opacity: 0.9;
+    }
+    /* Subtle animated dots */
+    .dots::after {
+      content: "";
+      animation: dots 1.2s steps(4, end) infinite;
+      display: inline-block;
+      width: 1ch;
+      text-align: left;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+    @keyframes dots {
+      0% { content: ""; }
+      25% { content: "."; }
+      50% { content: ".."; }
+      75% { content: "..."; }
+      100% { content: ""; }
+    }
+    /* Optional: prevent text selection */
+    * { user-select: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="status" aria-live="polite" aria-busy="true">
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="msg"><span class="dots">Loading</span></div>
+  </div>
+
+  <script>
+    // Keep the tab title animating forever
+    (function animateTitle() {
+      const base = "Loading";
+      let i = 0;
+      setInterval(() => {
+        document.title = base + ".".repeat((i++ % 4));
+      }, 400);
+    })();
+
+    // Optional: keep CPU usage low by not doing heavy work.
+    // This page intentionally never finishes "loading" state.
+  </script>
+</body>
+</html>
